@@ -1,0 +1,69 @@
+# ============================================================
+# SECURITY MISCONFIGURATION - OWASP Juice Shop
+# Autor: Daniel de Souza de Aguiar
+# Data: Abril/2026
+# ============================================================
+
+# ------------------------------------------------------------
+# 1. DIRECTORY LISTING - /ftp/
+# ------------------------------------------------------------
+
+# Endpoint vulnerável
+http://localhost:3000/ftp/
+
+# Arquivos expostos
+http://localhost:3000/ftp/acquisitions.md
+http://localhost:3000/ftp/announcement_encrypted.md
+http://localhost:3000/ftp/coupons_2013.md.bak
+http://localhost:3000/ftp/eastere.gg
+http://localhost:3000/ftp/encrypt.pyc
+http://localhost:3000/ftp/incident-support.kdbx
+http://localhost:3000/ftp/legal.md
+http://localhost:3000/ftp/package-lock.json.bak
+http://localhost:3000/ftp/package.json.bak
+http://localhost:3000/ftp/suspicious_errors.yml
+
+# ------------------------------------------------------------
+# 2. METRICS EXPOSURE - /metrics
+# ------------------------------------------------------------
+
+# Endpoint exposto
+http://localhost:3000/metrics
+
+# Informações vazadas:
+# - Versão da aplicação
+# - Uso de CPU e memória
+# - Estatísticas de garbage collection
+# - Contagem de requisições
+# - Versões das bibliotecas
+
+# ------------------------------------------------------------
+# 3. COMANDOS DE RECONHECIMENTO
+# ------------------------------------------------------------
+
+# Enumeração de diretórios com Gobuster
+gobuster dir -u http://localhost:3000 -w /usr/share/wordlists/dirb/common.txt
+
+# Verificar headers de segurança
+curl -I http://localhost:3000
+
+# Verificar robots.txt
+curl http://localhost:3000/robots.txt
+
+# Verificar arquivos de backup
+curl http://localhost:3000/package.json.bak
+
+# ------------------------------------------------------------
+# 4. HEADERS DE SEGURANÇA AUSENTES
+# ------------------------------------------------------------
+
+# Headers verificados:
+# - Content-Security-Policy (CSP): Ausente
+# - Strict-Transport-Security (HSTS): Ausente
+# - X-XSS-Protection: Ausente
+# - X-Content-Type-Options: Presente (nosniff)
+# - X-Frame-Options: Presente (SAMEORIGIN)
+# - Referrer-Policy: Ausente
+# - Permissions-Policy: Ausente
+
+# ============================================================

