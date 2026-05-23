@@ -26,3 +26,44 @@ Demonstrar, na prática, a exploração de vulnerabilidades críticas em aplica�
 | Docker | - | Isolamento do ambiente |
 
 ## Estrutura do Repositório
+
+```bash
+resumo-expandido-owasp-top10/
+├── README.md
+├── HOW_TO_RUN.md
+├── resumo_expandido.pdf
+│
+├── imagens/
+│   ├── sqli_login_bypass.png
+│   ├── sqli_tabela_users.png
+│   ├── broken_access_admin.png
+│   ├── idor_carrinho.png
+│   ├── xss_payloads.png
+│   ├── xss_confirmacao.png
+│   ├── directory_listing_ftp.png
+│   ├── metrics_exposed.png
+│   ├── sqli_sqlmap_execucao.png
+│   └── xss_persistente_alerta.png
+│
+├── payloads/
+│   ├── sqli_payloads.txt
+│   ├── xss_payloads.txt
+│   ├── idor_endpoints.txt
+│   └── security_misconfiguration.txt
+│
+└── referencias/
+    └── referencias.bib
+```                          
+
+## Vulnerabilidades Exploradas
+
+- SQL Injection (SQLi)
+- Broken Access Control (IDOR)
+- Cross-Site Scripting (XSS)
+- Security Misconfiguration
+- Server-Side Request Forgery (SSRF)
+- Remote Code Execution (RCE)
+- OS Command Injection
+- Authentication Bypass
+
+
